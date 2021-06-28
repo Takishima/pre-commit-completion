@@ -1,0 +1,5 @@
+Checks:          '*,-readability-named-parameter,*,-llvmlibc*,-objc-*,-fuchsia-trailing-return,-fuchsia-overloaded-operator,-fuchsia-default-arguments-calls,-fuchsia-default-arguments-declarations,-modernize-use-trailing-return-type'
+WarningsAsErrors: ''
+HeaderFilterRegex: ''
+AnalyzeTemporaryDtors: false
+FormatStyle:     file
