@@ -69,8 +69,8 @@ _pre_commit()
     OPTS_install=( -t --hook-type )
 
     FLAGS_run=( -v --verbose --show-diff-on-failure -a --all-files )
-    # OPTS_run=( --files --hook-stage --remote-branch --from-ref --to-ref --commit-msg-filename --remote-name --remote-url --checkout-type --is-squash-merge )
-    OPTS_run=( --files --hook-stage)
+    # OPTS_run=( --color -c --files --hook-stage --remote-branch --local-branch --from-ref --to-ref --commit-msg-filename --remote-name --remote-url --checkout-type --is-squash-merge --rewrite-command)
+    OPTS_run=( -c --config --color --files --hook-stage )
     HAS_POS_run=3  # hooks
 
     # OPTS_try_repo=( --files --hook-stage --remote-branch --from-ref --to-ref --commit-msg-filename --remote-name --remote-url --checkout-type --is-squash-merge )
@@ -126,8 +126,17 @@ _pre_commit()
                 ;;
             run | try-repo)
                 case "$prev" in
+                    -c | --config)
+                        COMPREPLY=()
+                        _filedir
+                        return
+                        ;;
+                    --color)
+                        COMPREPLY=( $(compgen -W "auto always never" -- "$cur") )
+                        return
+                        ;;
                     --hook-stage)
-                        COMPREPLY=( $(compgen -W "commit merge-commit prepare-commit-msg commit-msg post-commit manual post-checkout push post-merge" -- "$cur") )
+                        COMPREPLY=( $(compgen -W "commit merge-commit prepare-commit-msg commit-msg post-commit manual post-checkout push post-merge post-rewrite" -- "$cur") )
                         return
                         ;;
                     *)
